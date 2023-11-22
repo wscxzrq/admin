@@ -18,8 +18,15 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*":["src/*"]
+    }, // 解决设置路由别名 eslint、vetur、typescript 导致的报错
+    "baseUrl": "./", // 解决 上一个问题导致的  "@/*":["src/*"] 报错
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
+
+
+
 }

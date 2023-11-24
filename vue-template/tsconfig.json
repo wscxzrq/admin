@@ -13,7 +13,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -26,8 +25,8 @@
       // "_pinia":["src/pinia/*"]
     }, // 解决设置路由别名 eslint、vetur、typescript 导致的报错
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","vite.config.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","vite.config.ts","vite/**/*.ts",],
+  // "references": [{ "path": "./tsconfig.node.json" }]
 
 
 

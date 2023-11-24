@@ -10,6 +10,9 @@
 4. `npm add vue-router@4` 安装 `vue-router@4`
 5. `npm add -D path` 安装 `path` 模块 设置类型别名
 6. `npm add -D @type/node` 安装类型声明
+7. `npm add lodash` 安装 lodash 工具库
+8. `npm add -D @types/lodash` 安装 lodash 类型声明
+   `
 
 ## 项目结构
 

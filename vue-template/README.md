@@ -12,7 +12,13 @@
 6. `npm add -D @type/node` 安装类型声明
 7. `npm add lodash` 安装 lodash 工具库
 8. `npm add -D @types/lodash` 安装 lodash 类型声明
-   `
+9. `npm add mockjs` 安装 mockjs 模拟数据
+10. `npm add -D vite-plugin-mock` 安装 mockjs 插件
+11. `npm add -D @types/mockjs` 安装 mockjs 类型声明
+12. `npm add axios` 安装 axios 工具库
+13. `npm add -D @types/axios` 安装 axios 类型声明
+14. `npm add element-plus` 安装 element-plus 组件库
+15. `npm add -D @types/element-plus` 安装 element
 
 ## 项目结构
 

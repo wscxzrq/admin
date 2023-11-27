@@ -7,11 +7,8 @@ import { setupMockPlugin } from "./mock";
  * @param env - 环境变量
  * @returns {Plugin[]} - 插件数组
  */
-export default function setupPlugin(
-  isBuild: boolean,
-  env: Record<string, any>
-) {
+export default function setupPlugin(isBuild: boolean, env: ViteEnv) {
   const plugins: Plugin[] = [vue()];
   plugins.push(setupMockPlugin(isBuild));
-  return [vue()];
+  return plugins;
 }

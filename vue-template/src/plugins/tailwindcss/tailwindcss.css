@@ -1,0 +1,4 @@
+/* 使用 tailwind css 作为 css 样式框架 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

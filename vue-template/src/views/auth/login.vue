@@ -5,7 +5,7 @@
         <div>
           <h2 class="text-center text-gray-700 text-lg">会员登录</h2>
           <div class="mt-8">
-            <Field name="account" as="input" value="123456@163.com" label="账号" #default="{field}" class="xt-input" placeholder="请输入手机号或邮箱">
+            <Field name="account" as="input" value="XT@163.com" label="账号" #default="{field}" class="xt-input" placeholder="请输入手机号或邮箱">
               <input v-bind="field">
             </Field>
             <div v-if="errors.account" class="xt-error">请输入手机号或邮箱</div>
@@ -41,6 +41,7 @@
   import { email, required } from '@vee-validate/rules';
   import { min } from 'lodash';
   import stroe from '@/utils/store';
+  import router from '@/router';
   const { Form, Field, ErrorMessage } = v;
 
   const schema = v.yup.object({
@@ -52,17 +53,22 @@
   //   account: { required: true, email: true },
   //   password: { required: true, min: 3 }
   // }
-  const onSubmit = async values => {
+  const onSubmit = async (values: any) => {
     const {
       data: { token },
     } = await userApi.login(values);
     stroe.set('token', {
       token,
-      expire: 100,
+      expire: 1000 * 60 * 60 * 24,
     });
+    router.push({ name: 'home' });
   };
 </script>
-
+<script lang="ts">
+  export default {
+    route: { name: 'login' },
+  };
+</script>
 <style lang="scss" scoped>
 form {
   @apply bg-slate-300 h-screen flex justify-center items-start md:items-center p-5 md:p-0;

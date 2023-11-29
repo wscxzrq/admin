@@ -1,29 +1,29 @@
-import { isJSDocNonNullableType } from 'typescript'
+import { isJSDocNonNullableType } from 'typescript';
 // 定时删除 token
-interface IData {
-  expire: number
-  [key: string]: any
+export interface IData {
+  expire: number;
+  [key: string]: any;
 }
 export default {
   set(key: string, data: IData): void {
     if (data.expire) {
-      data.expire = new Date().getTime() + data.expire
+      data.expire = new Date().getTime() + data.expire;
     }
 
-    localStorage.setItem(key, JSON.stringify(data))
+    localStorage.setItem(key, JSON.stringify(data));
   },
 
   get(key: string): IData | null {
-    const item = localStorage.getItem(key)
+    const item = localStorage.getItem(key);
     if (item) {
-      const data = JSON.parse(item)
-      const expire = data.expire
-      if (expire < new Date().getTime()) {
-        localStorage.removeItem(key)
-        return null
+      const data = JSON.parse(item);
+      const expire = data.expire;
+      if (expire && expire < new Date().getTime()) {
+        localStorage.removeItem(key);
+        return null;
       }
-      return data
+      return data;
     }
-    return null
+    return null;
   },
-}
+};

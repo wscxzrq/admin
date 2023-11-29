@@ -23,9 +23,6 @@
 </template>
 
 <script lang="ts" setup>
-  // import xtInput from '@/components/form/xt-input.vue'
-  // import xtButton from '@/components/form/xt-button.vue'
-  // import xtLink from '@/components/form/xt-link.vue'
 </script>
 
 <style lang="scss" scoped>

@@ -6,5 +6,6 @@ yup.setLocale({
   string: {
     email: "请输入正确的邮箱地址",
   },
+  number: {},
 });
 export default yup;

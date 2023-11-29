@@ -34,9 +34,19 @@
 
 15. `npm add -D sass` 安装 sass 工具库
 
-16. `npm add element-plus` 安装 element-plus 组件库
+16. `npm add vee-validate@4.7.0 @vee-validate/rules@4.7.0 yup@0.32.11` 安装表单验证工具库 注意版本如果版本不一致会导致 `TS` 校验报错 校验时 `name` 属性提示 `undefined`
 
-17. `npm add -D @types/element-plus` 安装 element
+    1. `vee-validate` 用于 Vue 组件中进行表单验证
+
+    2. `@vee-validate/rules` 提供常见表单验证规则的插件
+
+    3. `yup` 用于构建模式验证期器的库，可以与 JavaScript 与 Vue 一起使用，提供了一种简单且类型安全的方式来定义和执行模式验证
+
+17. `npm add @vee-validate/i18n@4.7.0` 安装中文语言扩展
+
+18. `npm add element-plus` 安装 element-plus 组件库
+
+19. `npm add -D @types/element-plus` 安装 element
 
 ## 项目结构
 
@@ -76,7 +86,7 @@ import "./tailwindcss.css";
 export function setupTailwindcss() {}
 ```
 
-6. 在 `tailwindcss` 文件夹下的 `tailwindcss.css` 中添加如下代码
+6. 在 `tailwindcss` 文件夹下的 `tailwindcss.css` 中添加如下代码 会对 HTML 样式进行初始化
 
 ```css
 @tailwind base;

@@ -7,7 +7,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -24,6 +24,7 @@
       // "components":["src/components/*"],
       // "_pinia":["src/pinia/*"]
     }, // 解决设置路由别名 eslint、vetur、typescript 导致的报错
+    "allowSyntheticDefaultImports":true,
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","vite.config.ts","vite/**/*.ts","mock/**/*.ts","types/**/*.d.ts"],
   // "references": [{ "path": "./tsconfig.node.json" }]

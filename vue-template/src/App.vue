@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-  // import { env } from './types/helper'
+  // import { env } from './tuils/helper'
   // console.log(env.VITE_ROUTE_AUTOLOAD)
 
   // const res = await fetch(' http://127.0.0.1:5173/api/get').then((r) => r.json())

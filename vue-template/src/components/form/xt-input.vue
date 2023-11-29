@@ -1,8 +1,14 @@
 <template>
-  <input type="text" placeholder="请输入手机号或邮箱" class="xt-input">
+  <input type="text" placeholder="请输入手机号或邮箱" class="xt-input" :value="modelValue" @input="$emit('update:modelValue',($event.target as HTMLInputElement).value)">
 </template>
 
 <script lang="ts" setup>
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      default: ''
+    }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -21,7 +21,7 @@ export default [
   },
   {
     url: "/api/login",
-    method: "get",
+    method: "post",
     response: ({ query }) => {
       return {
         code: 0,

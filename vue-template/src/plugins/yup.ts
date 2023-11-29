@@ -5,6 +5,7 @@ yup.setLocale({
   },
   string: {
     email: "请输入正确的邮箱地址",
+    min: "${label}长度不能小于${min}",
   },
   number: {},
 });

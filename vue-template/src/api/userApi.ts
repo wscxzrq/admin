@@ -15,10 +15,11 @@ class userApi {
     });
   }
 
-  login() {
+  login(data: any) {
     return http.request<Login>({
       url: "login",
-      method: "get",
+      method: "post",
+      data,
     });
   }
 }

@@ -11,11 +11,10 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": true, // 
     "jsx": "preserve",
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".", // 解决 上一个问题导致的  "@/*":["src/*"] 报错
@@ -28,7 +27,5 @@
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","vite.config.ts","vite/**/*.ts","mock/**/*.ts","types/**/*.d.ts"],
   // "references": [{ "path": "./tsconfig.node.json" }]
-
-
-
 }
+

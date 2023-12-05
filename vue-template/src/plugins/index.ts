@@ -1,9 +1,11 @@
-import { App } from "vue";
-import { setupTailwindcss } from "./tailwindcss";
-import _ from "lodash";
+import { App } from 'vue';
+import { setupTailwindcss } from './tailwindcss';
+import _ from 'lodash';
+import setupElementPlus from './elementui';
 export function setupPlugins(app: App) {
   autoRegisterComponent(app);
   setupTailwindcss();
+  setupElementPlus(app);
 }
 
 /**
@@ -11,7 +13,7 @@ export function setupPlugins(app: App) {
  * @param app App.vue 组件
  */
 function autoRegisterComponent(app: App) {
-  const components = import.meta.glob("../components/form/*.vue", {
+  const components = import.meta.glob('../components/form/*.vue', {
     eager: true,
   });
   Object.entries(components).forEach(([key, module]) => {
@@ -20,11 +22,7 @@ function autoRegisterComponent(app: App) {
 }
 
 // 完成组件注册
-function completeComponentRegistration(
-  app: App,
-  key: string,
-  module: { [key: string]: any }
-) {
-  const name = _.camelCase(key.split("/").pop()?.split(".")[0]) as string;
+function completeComponentRegistration(app: App, key: string, module: { [key: string]: any }) {
+  const name = _.camelCase(key.split('/').pop()?.split('.')[0]) as string;
   app.component(name, module.default);
 }

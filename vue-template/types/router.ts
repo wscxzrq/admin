@@ -3,6 +3,7 @@ import 'vue-router';
 
 declare module 'vue-router' {
   interface RouteMeta {
-    auth?: boolean;
+    auth?: boolean; // 权限验证
+    guest?: boolean; // 游客验证
   }
 }

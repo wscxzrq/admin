@@ -1,6 +1,6 @@
 <template>
   <Form @submit="onSubmit" :validation-schema="schema" #default="{errors}">
-    <div class="w-[720px] translate-y-32 md:translate-y-0 bg-white md:grid grid-cols-2 rounded-md overflow-hidden">
+    <div class="w-[720px] translate-y-32 md:translate-y-0 bg-white md:grid grid-cols-2 rounded-md overflow-hidden ">
       <div class="p-6 shadow-md flex flex-col justify-between">
         <div>
           <h2 class="text-center text-gray-700 text-lg">会员登录</h2>
@@ -66,7 +66,8 @@
 </script>
 <script lang="ts">
   export default {
-    route: { name: 'login' },
+    // guest 标识是否是游客
+    route: { name: 'login', meta: { guest: true } },
   };
 </script>
 <style lang="scss" scoped>

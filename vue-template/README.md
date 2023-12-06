@@ -46,8 +46,6 @@
 
 18. `npm add element-plus` 安装 element-plus 组件库
 
-19. `npm add -D @types/element-plus` 安装 element
-
 ## 项目结构
 
 全局安装了 mddir 可以直接使用 mddir 命令进行结构树生成
@@ -82,7 +80,7 @@ export default {
 5. 在 `tailwindcss` 文件夹下的 `index.ts` 中添加如下代码
 
 ```ts
-import "./tailwindcss.css";
+import './tailwindcss.css';
 export function setupTailwindcss() {}
 ```
 
@@ -97,8 +95,8 @@ export function setupTailwindcss() {}
 7. 在 `src` 目录下的 `plugins` 文件夹中添加如下代码 完成插件挂载
 
 ```ts
-import { App } from "vue";
-import { setupTailwindcss } from "./tailwindcss";
+import { App } from 'vue';
+import { setupTailwindcss } from './tailwindcss';
 export function setupPlugins(app: App) {
   setupTailwindcss();
 }

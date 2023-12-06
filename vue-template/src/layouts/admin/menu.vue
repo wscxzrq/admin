@@ -13,7 +13,7 @@
             <span class="text-sm">{{menu.title}}</span>
           </section>
           <section>
-            <i class="fas fa-angle-down"></i>
+            <i class="fas fa-angle-down duration-300" :class="{'rotate-180':menu.active}"></i>
           </section>
         </dt>
         <dd v-show="menu.active" :class="{active:cmenu.active}" v-for="(cmenu,key) of menu.children" :key="key">{{ cmenu.title }}</dd>
@@ -121,7 +121,7 @@
           }
         }
         dd {
-          @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer hover:bg-violet-500 duration-300;
+          @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer bg-gray-700 hover:bg-violet-500 duration-300;
           &.active {
             @apply bg-violet-700;
           }

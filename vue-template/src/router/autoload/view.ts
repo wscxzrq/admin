@@ -1,5 +1,4 @@
-// 自动注册路由
-import { env } from '@/utils';
+// 根据视图自动注册路由
 import { RouteRecordRaw } from 'vue-router';
 /**
  * import.meta.glob
@@ -58,6 +57,4 @@ function getRouteByModule(file: string, module: { [key: string]: any }): RouteRe
   // module.default?.route 可选链式操作符 表示如果 module.default 存在，则获取其 route 属性；否则，结果为 undefined。
   return Object.assign(router, module.default?.route);
 }
-
-const routes = env.VITE_ROUTER_AUTOLOAD ? getRouters() : ([] as RouteRecordRaw[]);
-export default routes;
+export default getRouters;

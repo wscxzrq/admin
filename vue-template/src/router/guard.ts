@@ -1,7 +1,5 @@
 import { store } from '@/utils';
 import { RouteLocationNormalized, Router } from 'vue-router';
-import IData from '@/utils/store';
-import { debug } from 'console';
 // 路由守卫
 class Guard {
   public run() {

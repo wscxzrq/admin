@@ -6,94 +6,57 @@
     </div>
     <!-- 菜单 -->
     <div class="left-container">
-      <dl v-for="(menu,index) of menus" :key="index">
-        <dt @click="handle(menu)">
+      <dl v-for="(route,index) of routerStore.routes" :key="index">
+        <dt @click="handle(route)">
           <section>
-            <i :class="menu.icon" class="fa-solid fa-circle-exclamation"></i>
-            <span class="text-sm">{{menu.title}}</span>
+            <i :class="route.meta.icon"></i>
+            <span class="text-sm">{{route.meta.title}}</span>
           </section>
           <section>
-            <i class="fas fa-angle-down duration-300" :class="{'rotate-180':menu.active}"></i>
+            <i class="fas fa-angle-down duration-300" :class="{'rotate-180':route.meta.isClick}"></i>
           </section>
         </dt>
-        <dd v-show="menu.active" :class="{active:cmenu.active}" v-for="(cmenu,key) of menu.children" :key="key">{{ cmenu.title }}</dd>
+        <dd v-show="route.meta.isClick" :class="{active:childRoute.meta?.isClick}" 
+          v-for="(childRoute,key) of route.children" :key="key" @click="handle(route,childRoute)">
+            {{ childRoute.meta?.title }}
+        </dd>
       </dl>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-
-  interface IMenuItem {
-    title: string;
-    icon?: string;
-    active?: boolean;
-  }
-
-  interface IMenu extends IMenuItem {
-    children?: IMenuItem[];
-  }
-
-  const menus = ref<IMenu[]>([
-    {
-      title: '错误页面',
-      icon: ' ',
-      active: true,
-      children: [
-        {
-          title: '404页面',
-          icon: 'user',
-          active: true,
-        },
-        {
-          title: '403 页面',
-          icon: 'user',
-          active: false,
-        },
-        {
-          title: '500 页面',
-          icon: 'user',
-          active: false,
-        },
-      ],
-    },
-    {
-      title: '编辑器',
-      active: false,
-      children: [
-        {
-          title: 'markdown编辑器',
-          active: false,
-          icon: 'user',
-        },
-        {
-          title: '富文本编辑器',
-          active: false,
-          icon: 'user',
-        },
-      ],
-    },
-  ]);
+  import {router} from '@/store/router'
+  import { useRouter } from 'vue-router';
+  import { RouteRecordNormalized } from 'vue-router';
+  import { RouteRecordRaw } from 'vue-router';
+  const routerService = useRouter();
+  const routerStore = router();  
 
   /**
    * 菜单点击事件
    * @param pmenu 父级菜单
    * @param cmenu  子级菜单
    */
-  const handle = (pmenu: IMenuItem, cmenu?: IMenuItem) => {
+  const handle = (pRoute: RouteRecordNormalized, cRoute?: RouteRecordRaw) => {
     resetMenus();
-    pmenu.active = true;
+    pRoute.meta.isClick = true;
+    if(cRoute && cRoute.meta) {
+      cRoute.meta.isClick = true;
+      routerService.push(cRoute)
+    }
   };
-
+  
   /**
    * 重置菜单
    */
   const resetMenus = () => {
-    menus.value.forEach(menu => {
-      menu.active = false;
-      menu.children?.forEach(child => {
-        child.active = false;
+    routerStore.routes.forEach(route => {
+      route.meta.isClick = false;
+      route.children?.forEach(route => {
+        if(route.meta) {
+          route.meta.isClick = false;
+        }
       });
     });
   };
@@ -116,7 +79,7 @@
           section {
             @apply flex items-center;
             i {
-              @apply mr-2 text-xs;
+              @apply mr-2 text-sm;
             }
           }
         }

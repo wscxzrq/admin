@@ -4,7 +4,7 @@
       <template #header>
         <div class="flex justify-between items-center">
           {{card.title}}
-          <el-tag size="mini" type="danger" effect="dark">月</el-tag>
+          <el-tag size="small" type="danger" effect="dark">月</el-tag>
         </div>
       </template>
 
@@ -19,7 +19,7 @@
       </section>
     </el-card>
   </div>
-  <div class="bg-white p-3 mt-5 grid md:grid-cols-2 gap-3">
+  <div class="bg-white mt-5 grid md:grid-cols-2 gap-3">
     <el-card :body-style="{pading:'20px'}">
       <template #header>
         <div>用户统计</div>

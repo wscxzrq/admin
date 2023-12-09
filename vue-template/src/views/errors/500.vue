@@ -1,5 +1,5 @@
 <template>
-  500
+  <div>500</div>
 </template>
 
 <script lang="ts" setup>

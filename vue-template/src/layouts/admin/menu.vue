@@ -1,81 +1,73 @@
 <template>
-  <div class="menu">
-    <div class="logo">
-      <img src="/images/logo.jpg" class="object-cover" alt="">
-      <span class="text-sm">XT-后台管理系统</span>
+  <div class="admin-menu" :class="{ close: menuService.isCollapse.value }">
+    <div class="menu">
+      <div class="logo">
+        <img src="/images/logo.jpg" class="w-[25px] h-[25px] p-2" alt="" />
+        <span class="text-sm">XT-后台管理系统</span>
+      </div>
+      <!-- 菜单 -->
+      <div class="left-container">
+        <dl>
+          <dt
+            @click="$router.push('/admin')"
+            :class="{ 'bg-violet-600 text-white p-3 rounded-md': $route.name === 'admin.home' }">
+            <section>
+              <i class="fas fa-home"></i>
+              <span class="text-sm">dashboard</span>
+            </section>
+          </dt>
+        </dl>
+        <dl v-for="(menu, index) of menuServe.menu.value" :key="index">
+          <dt @click="menu.isClick = !menu.isClick">
+            <section>
+              <i :class="menu.icon"></i>
+              <span class="text-sm">{{ menu.title }}</span>
+            </section>
+            <section>
+              <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': menu.isClick }"></i>
+            </section>
+          </dt>
+          <dd :class="!menu.isClick || menuServe.isCollapse.value ? 'hidden' : 'block'">
+            <div
+              :class="{ active: cmenu?.isClick }"
+              v-for="(cmenu, key) of menu.children"
+              :key="key"
+              @click="$router.push({ name: cmenu.route })">
+              {{ cmenu?.title }}
+            </div>
+          </dd>
+        </dl>
+      </div>
     </div>
-    <!-- 菜单 -->
-    <div class="left-container">
-      <dl v-for="(route,index) of routerStore.routes" :key="index">
-        <dt @click="handle(route)">
-          <section>
-            <i :class="route.meta.icon"></i>
-            <span class="text-sm">{{route.meta.title}}</span>
-          </section>
-          <section>
-            <i class="fas fa-angle-down duration-300" :class="{'rotate-180':route.meta.isClick}"></i>
-          </section>
-        </dt>
-        <dd v-show="route.meta.isClick" :class="{active:childRoute.meta?.isClick}" 
-          v-for="(childRoute,key) of route.children" :key="key" @click="handle(route,childRoute)">
-            {{ childRoute.meta?.title }}
-        </dd>
-      </dl>
-    </div>
+    <div class="bg block md:hidden" @click="menuServe.isCollapse.value = !menuServe.isCollapse.value"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import {router} from '@/store/router'
-  import { useRouter } from 'vue-router';
-  import { RouteRecordNormalized } from 'vue-router';
-  import { RouteRecordRaw } from 'vue-router';
-  const routerService = useRouter();
-  const routerStore = router();  
-
-  /**
-   * 菜单点击事件
-   * @param pmenu 父级菜单
-   * @param cmenu  子级菜单
-   */
-  const handle = (pRoute: RouteRecordNormalized, cRoute?: RouteRecordRaw) => {
-    resetMenus();
-    pRoute.meta.isClick = true;
-    if(cRoute && cRoute.meta) {
-      cRoute.meta.isClick = true;
-      routerService.push(cRoute)
-    }
-  };
-  
-  /**
-   * 重置菜单
-   */
-  const resetMenus = () => {
-    routerStore.routes.forEach(route => {
-      route.meta.isClick = false;
-      route.children?.forEach(route => {
-        if(route.meta) {
-          route.meta.isClick = false;
-        }
-      });
-    });
-  };
+import menuServe from '@/composables/menu';
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
+import menuService from '@/composables/menu';
+const route = useRoute();
+watch(route, () => menuServe.setCurrentMenu(route), { immediate: true });
 </script>
 
 <style lang="scss" scoped>
+.admin-menu {
+  @apply z-20;
   .menu {
-    @apply w-[200px] bg-gray-800 p-4;
+    @apply w-[200px] h-full bg-gray-800 p-2;
     .logo {
-      @apply text-gray-300 flex justify-center items-center flex-col shadow-md;
+      @apply text-gray-300 flex justify-center items-center flex-col pb-4;
       img {
         @apply w-16 h-16 rounded-full mb-1;
       }
     }
     .left-container {
       dl {
-        @apply text-gray-300 text-sm;
+        @apply text-gray-300 text-sm relative;
         dt {
-          @apply text-sm mt-6 flex justify-between items-center cursor-pointer;
+          @apply text-sm p-3 flex justify-between items-center cursor-pointer;
           section {
             @apply flex items-center;
             i {
@@ -84,13 +76,66 @@
           }
         }
         dd {
-          @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer bg-gray-700 hover:bg-violet-500 duration-300;
-          &.active {
-            @apply bg-violet-700;
+          div {
+            @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer bg-gray-700 hover:bg-violet-500 duration-300;
+            &.active {
+              @apply bg-violet-700;
+            }
           }
         }
       }
     }
   }
-  
+}
+// 屏幕宽度大于 768px
+@media screen and (min-width: 768px) {
+  .admin-menu {
+    &.close {
+      .menu {
+        @apply w-auto;
+        .logo {
+          span {
+            @apply hidden;
+          }
+        }
+        .left-container {
+          dl {
+            dt {
+              @apply flex justify-center;
+              section {
+                span {
+                  @apply hidden;
+                }
+                &:nth-of-type(2) {
+                  @apply hidden;
+                }
+              }
+            }
+            &:hover {
+              dd {
+                @apply block absolute left-full top-[0px] w-[200px] bg-gray-700;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 屏幕宽度小于 768px
+@media screen and (max-width: 768px) {
+  .admin-menu {
+    @apply h-screen w-[200px] absolute left-0 top-0 z-50;
+    .menu {
+      @apply h-full z-50 absolute;
+    }
+    .bg {
+      @apply bg-gray-200 opacity-75 w-screen h-screen z-40 absolute left-0 top-0;
+    }
+    &.close {
+      @apply hidden;
+    }
+  }
+}
 </style>

@@ -1,5 +1,8 @@
-import { store } from '@/utils';
+import { CacheEnum } from '@/enum/cacheEnum';
+import { user } from '@/store/userStore';
+import utils from '@/utils';
 import { RouteLocationNormalized, Router } from 'vue-router';
+import menuStore from '@/store/menuStore';
 // 路由守卫
 class Guard {
   constructor(private router: Router) {}
@@ -13,7 +16,7 @@ class Guard {
    * @param to
    * @param from
    */
-  private beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
+  private async beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
     /**
      * vue 会把当前路由与路由元信息进行合并
      * 对登录路由进行验证
@@ -21,6 +24,7 @@ class Guard {
     if (!this.isLogin(to)) return { name: 'login' };
     // 如果游客标识为假或者没有 token 那么返回主页
     if (!this.isGuest(to)) return { name: 'home' };
+    await this.getUserInfo();
   }
 
   /**
@@ -28,7 +32,17 @@ class Guard {
    * @returns  token
    */
   private token(): string | null {
-    return store.get('token')?.token;
+    return utils.store.get(CacheEnum.TOKEN_NAME);
+  }
+
+  /**
+   * 获取用户信息
+   *
+   */
+  private getUserInfo() {
+    if (this.token()) {
+      return user().getUserInfo();
+    }
   }
 
   /**
@@ -37,7 +51,13 @@ class Guard {
    */
   private isLogin(router: RouteLocationNormalized): boolean {
     // 如果不需要验证或者需要验证 并且存在token 那么可以访问
-    return Boolean(!router.meta.auth || (router.meta.auth && this.token()));
+    const state = Boolean(!router.meta.auth || (router.meta.auth && this.token()));
+    // 如果当前页面需要登录状态，但是当前没有登录状态
+    if (!state) {
+      utils.store.set(CacheEnum.REDIRECT_ROUTE_NAME, router.name);
+    }
+
+    return state;
   }
 
   /**

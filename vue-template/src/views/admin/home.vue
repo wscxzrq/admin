@@ -1,37 +1,39 @@
 <template>
-  <div class="grid md:grid-cols-4 gap-3 bg-gray-100 cursor-pointer">
-    <el-card shadow="hover" :body-style="{pading:'20px'}" v-for="(card,index) of cards" :key="index">
-      <template #header>
-        <div class="flex justify-between items-center">
-          {{card.title}}
-          <el-tag size="small" type="danger" effect="dark">月</el-tag>
-        </div>
-      </template>
-
-      <section class="flex mt-3 justify-between items-center">
-        <span class="text-3xl"> $29322 </span>
-        <i :class="[card.icon,card.iconColor]" class="text-5xl"></i>
-      </section>
-
-      <section class="text-sm mt-6 flex justify-between items-center">
-        {{ card.totalTitle }}
-        <span class>{{ card.total }}</span>
-      </section>
-    </el-card>
-  </div>
-  <div class="bg-white mt-5 grid md:grid-cols-2 gap-3">
-    <el-card :body-style="{pading:'20px'}">
-      <template #header>
-        <div>用户统计</div>
-      </template>
-      <div id="echart1" class="h-80 w-full"></div>
-    </el-card>
-    <el-card :body-style="{pading:'20px'}">
-      <template #header>
-        <div>销售额</div>
-      </template>
-      <div id="echart2" class="h-80 w-full"></div>
-    </el-card>
+  <div>
+    <div class="grid md:grid-cols-4 gap-3 bg-gray-100 cursor-pointer">
+      <el-card shadow="hover" :body-style="{pading:'20px'}" v-for="(card,index) of cards" :key="index">
+        <template #header>
+          <div class="flex justify-between items-center">
+            {{card.title}}
+            <el-tag size="small" type="danger" effect="dark">月</el-tag>
+          </div>
+        </template>
+  
+        <section class="flex mt-3 justify-between items-center">
+          <span class="text-3xl"> $29322 </span>
+          <i :class="[card.icon,card.iconColor]" class="text-5xl"></i>
+        </section>
+  
+        <section class="text-sm mt-6 flex justify-between items-center">
+          {{ card.totalTitle }}
+          <span class>{{ card.total }}</span>
+        </section>
+      </el-card>
+    </div>
+    <div class="bg-white mt-5 grid md:grid-cols-2 gap-3">
+      <el-card :body-style="{pading:'20px'}">
+        <template #header>
+          <div>用户统计</div>
+        </template>
+        <div id="echart1" class="h-80 w-full"></div>
+      </el-card>
+      <el-card :body-style="{pading:'20px'}">
+        <template #header>
+          <div>销售额</div>
+        </template>
+        <div id="echart2" class="h-80 w-full"></div>
+      </el-card>
+    </div>
   </div>
 </template>
 

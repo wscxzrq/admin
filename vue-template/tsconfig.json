@@ -20,12 +20,20 @@
     "baseUrl": ".", // 解决 上一个问题导致的  "@/*":["src/*"] 报错
     "paths": {
       "@/*":["./src/*"],
-      // "components":["src/components/*"],
-      // "_pinia":["src/pinia/*"]
+      "#/*":["./types/*"]
     }, // 解决设置路由别名 eslint、vetur、typescript 导致的报错
     "allowSyntheticDefaultImports":true,
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","vite.config.ts","vite/**/*.ts","mock/**/*.ts","types/**/*.d.ts","types/**/*.ts"],
+  "include": [
+    "src/**/*.ts", 
+    "src/**/*.d.ts", 
+    "src/**/*.tsx", 
+    "src/**/*.vue",
+    "vite.config.ts",
+    "vite/**/*.ts",
+    "mock/**/*.ts",
+    "types/**/*.d.ts",
+    "types/**/*.ts"],
   // "references": [{ "path": "./tsconfig.node.json" }]
 }
 

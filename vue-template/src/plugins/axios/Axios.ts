@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from 'axios';
 
 export default class Axios {
   private instance; // 实例
@@ -9,9 +9,7 @@ export default class Axios {
     this.interceptors();
   }
 
-  public async request<T, D = ResponseResult<T>>(
-    config: AxiosRequestConfig
-  ): Promise<D> {
+  public async request<T, D = ResponseResult<T>>(config: AxiosRequestConfig): Promise<D> {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await this.instance.request<D>(config);
@@ -22,6 +20,9 @@ export default class Axios {
     });
   }
 
+  /**
+   * 调用拦截器函数
+   */
   private interceptors() {
     this.interceptorsRequest();
     this.interceptorsResponse();
@@ -32,14 +33,14 @@ export default class Axios {
    */
   private interceptorsRequest() {
     this.instance.interceptors.request.use(
-      (config) => {
+      config => {
         // 在发送请求之前做些什么
         return config;
       },
-      (error) => {
+      error => {
         // 对请求错误做些什么
         return Promise.reject(error);
-      }
+      },
     );
   }
 
@@ -48,16 +49,16 @@ export default class Axios {
    */
   private interceptorsResponse() {
     this.instance.interceptors.response.use(
-      (response) => {
+      response => {
         // 2xx 范围内的状态码都会触发该函数。
         // 对响应数据做点什么
         return response;
       },
-      (error) => {
+      error => {
         // 超出 2xx 范围的状态码都会触发该函数。
         // 对响应错误做点什么
         return Promise.reject(error);
-      }
+      },
     );
   }
 }

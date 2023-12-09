@@ -4,14 +4,14 @@ export default {
   name: 'admin',
   path: '/admin',
   component: () => import('@/layouts/admin.vue'),
-  meta: {
-    auth: true,
-  },
+  redirect: '/admin/home',
+  meta: { auth: true },
   children: [
     {
       name: 'admin.home',
       path: 'home',
       component: () => import('@/views/admin/home.vue'),
+      meta: { menu: { title: '主页' } },
     },
   ],
 } as RouteRecordRaw;

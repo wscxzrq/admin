@@ -1,10 +1,11 @@
-import { env } from '@/utils';
+import util from '@/utils';
 import { RouteRecordRaw } from 'vue-router';
 import getRouters from './view';
 import autoloadModuleRoutes from './module';
 
 let routes = [] as RouteRecordRaw[];
-if (env.VITE_ROUTER_AUTOLOAD) {
+
+if (util.env.VITE_ROUTER_AUTOLOAD) {
   routes = getRouters();
 } else {
   routes = autoloadModuleRoutes();

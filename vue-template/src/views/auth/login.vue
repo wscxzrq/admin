@@ -36,12 +36,10 @@
 </template>
 
 <script lang="ts" setup>
-  import userApi from '@/api/userApi';
   import v from '@/plugins/validate';
   import { email, required } from '@vee-validate/rules';
   import { min } from 'lodash';
-  import stroe from '@/utils/store';
-  import router from '@/router';
+  import utils from '@/utils';
   const { Form, Field, ErrorMessage } = v;
 
   const schema = v.yup.object({
@@ -54,14 +52,7 @@
   //   password: { required: true, min: 3 }
   // }
   const onSubmit = async (values: any) => {
-    const {
-      data: { token },
-    } = await userApi.login(values);
-    stroe.set('token', {
-      token,
-      expire: 1000 * 60 * 60 * 24,
-    });
-    router.push({ name: 'home' });
+    utils.user.login(values) 
   };
 </script>
 <script lang="ts">

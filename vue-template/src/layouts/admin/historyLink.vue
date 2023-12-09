@@ -1,27 +1,23 @@
 <!-- 历史链接 -->
 <template >
-  <div class="hidden md:block ">
-    <div class="m-5  grid grid-flow-col gap-2 justify-start">
-      <a href="" v-for="(link, index) of links" :key="index" class="bg-white rounded-md py-2 px-3  text-sm text-gray-600">
-        {{ link.title }}
-        <i class="fas fa-times ml-1"></i>
-      </a>
+  <div class="hidden md:block p-3 border-t border-b bg-gray-50 shadow-sm" v-show="menuService.history.value.length">
+    <div class=" grid grid-flow-col gap-2 justify-start cursor-pointer">
+      <div  v-for="(link, index) of menuService.history.value" :key="index" class="
+       hover:bg-violet-600 hover:text-white duration-300 border rounded-sm shadow-sm py-2 px-3  text-sm text-gray-600"
+       :class="{'text-white bg-violet-600':$route.name == link.route}">
+        <router-link :to="{name:link.route}">
+          {{ link.title }}
+        </router-link>
+        <i class="fas fa-times ml-1 hover:text-yellow-600 cursor-pointer"></i>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-
-const links = ref<{title:string}[]>([
-  {title: '编辑器'},
-  {title: '富文本'},
-  {title: '用户管理'},
-  {title: '销售总额'}
-])
-  
+  import menuService from '@/composables/menu'
 </script>
 
 <style lang="scss" scoped>
 
-</style>
+</style> 

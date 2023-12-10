@@ -1,7 +1,7 @@
 import userApi, { User } from '@/api/userApi';
 import { defineStore } from 'pinia';
 
-export const user = defineStore('user', {
+export default defineStore('user', {
   state: () => {
     return {
       /**

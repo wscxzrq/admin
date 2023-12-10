@@ -1,8 +1,7 @@
 import { CacheEnum } from '@/enum/cacheEnum';
-import { user } from '@/store/userStore';
+import userStore from '@/store/userStore';
 import utils from '@/utils';
 import { RouteLocationNormalized, Router } from 'vue-router';
-import menuStore from '@/store/menuStore';
 // 路由守卫
 class Guard {
   constructor(private router: Router) {}
@@ -24,7 +23,6 @@ class Guard {
     if (!this.isLogin(to)) return { name: 'login' };
     // 如果游客标识为假或者没有 token 那么返回主页
     if (!this.isGuest(to)) return { name: 'home' };
-    await this.getUserInfo();
   }
 
   /**
@@ -41,7 +39,7 @@ class Guard {
    */
   private getUserInfo() {
     if (this.token()) {
-      return user().getUserInfo();
+      return userStore().getUserInfo();
     }
   }
 

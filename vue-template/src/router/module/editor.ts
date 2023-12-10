@@ -10,13 +10,16 @@ export default {
       name: 'editor.base',
       path: 'base',
       component: () => import('@/views/editor/base.vue'),
-      meta: { menu: { title: '基础编辑器', icon: 'fa-solid fa-circle-exclamation' } },
+      meta: { permissions: 'base_editor', menu: { title: '基础编辑器', icon: 'fa-solid fa-circle-exclamation' } },
     },
     {
       name: 'editor.markdown',
       path: 'markdown',
       component: () => import('@/views/editor/markdown.vue'),
-      meta: { menu: { title: 'markdown编辑器', icon: 'fa-solid fa-circle-exclamation' } },
+      meta: {
+        permissions: 'editor_markdown',
+        menu: { title: 'markdown编辑器', icon: 'fa-solid fa-circle-exclamation' },
+      },
     },
   ],
 } as RouteRecordRaw;

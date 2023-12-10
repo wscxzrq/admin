@@ -15,7 +15,7 @@ declare module 'vue-router' {
     /**
      * 权限列表
      */
-    permissions?: string[];
+    // permissions?: string[];
 
     /**
      * 菜单配置项
@@ -29,5 +29,9 @@ declare module 'vue-router' {
      * 页面离开动画
      */
     leaveClass?: string;
+    /**
+     * 权限
+     */
+    permission?: string;
   }
 }

@@ -3,12 +3,14 @@ import { setupTailwindcss } from './tailwindcss';
 import _ from 'lodash';
 import setupElementPlus from './elementui';
 import setupPinia from './pinia';
+import setupElementIcon from './element-icon';
 
 export function setupPlugins(app: App) {
   autoRegisterComponent(app);
   setupTailwindcss();
   setupElementPlus(app);
   setupPinia(app);
+  setupElementIcon(app);
 }
 
 /**

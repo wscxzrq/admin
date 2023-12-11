@@ -13,9 +13,9 @@ class Guard {
   /**
    * 前置路由守卫
    * @param to
-   * @param from
+   * @param _from
    */
-  private async beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
+  private async beforeEach(to: RouteLocationNormalized, _from: RouteLocationNormalized) {
     /**
      * vue 会把当前路由与路由元信息进行合并
      * 对登录路由进行验证

@@ -23,6 +23,7 @@
       "#/*":["./types/*"]
     }, // 解决设置路由别名 eslint、vetur、typescript 导致的报错
     "allowSyntheticDefaultImports":true,
+    "types":["element-plus/global","echarts","lodash"]
   },
   "include": [
     "src/**/*.ts", 

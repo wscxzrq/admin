@@ -15,8 +15,10 @@
 
 <script lang="ts" setup>
   import v from '@/plugins/validate'
-  const { From, Field } = v
-  const onSubmit = (values) => {
+  // const { From, Field } = v
+  const {Field } = v
+
+  const onSubmit = (values: any) => {
     console.log(values)
   }
 </script> 

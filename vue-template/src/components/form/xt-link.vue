@@ -1,5 +1,5 @@
 <template>
-  <a href="" class="xt-href ">网站首页</a>
+  <router-link to="/" class="xt-href ">网站首页</router-link>
 
 </template>
 

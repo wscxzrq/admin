@@ -29,13 +29,6 @@ export const echart2 = {
     orient: 'vertical',
     left: 'left',
   },
-  // grid: {
-  //   left: '3%',
-  //   right: '4%',
-  //   bottom: '3%',
-  //   top: '30%',
-  // },
-
   series: [
     {
       name: 'Access From',

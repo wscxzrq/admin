@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="grid md:grid-cols-4 gap-3 bg-gray-100 cursor-pointer">
-      <el-card shadow="hover" :body-style="{pading:'20px'}" v-for="(card,index) of cards" :key="index">
+      <el-card shadow="hover" :body-style="{padding:'20px'}" v-for="(card,index) of cards" :key="index">
         <template #header>
           <div class="flex justify-between items-center">
             {{card.title}}
@@ -21,13 +21,13 @@
       </el-card>
     </div>
     <div class="bg-white mt-5 grid md:grid-cols-2 gap-3">
-      <el-card :body-style="{pading:'20px'}">
+      <el-card :body-style="{padding:'20px'}">
         <template #header>
           <div>用户统计</div>
         </template>
         <div id="echart1" class="h-80 w-full"></div>
       </el-card>
-      <el-card :body-style="{pading:'20px'}">
+      <el-card :body-style="{padding:'20px'}">
         <template #header>
           <div>销售额</div>
         </template>
@@ -40,6 +40,7 @@
 <script lang="ts" setup>
 import { ref ,nextTick} from 'vue';
 import {echart1,echart2} from './echarts'
+import { EChartOption } from 'echarts';
 interface ICard {
   title: string;
   price: number;
@@ -84,8 +85,8 @@ const cards = ref<ICard[]> ([
 ])
 
 nextTick(() => {
-  echarts.init(document.getElementById('echart1')).setOption(echart1);
-  echarts.init(document.getElementById('echart2')).setOption(echart2);
+  echarts.init(document.getElementById('echart1') as HTMLDivElement).setOption(echart1);
+  echarts.init(document.getElementById('echart2')  as HTMLDivElement).setOption(echart2 as EChartOption);
 })
 </script>
 <style lang="scss" scoped>

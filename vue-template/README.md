@@ -46,6 +46,14 @@
 
 18. `npm add element-plus` 安装 element-plus 组件库
 
+19. `npm add @types/echarts` 安装 Echarts 类型声明
+
+20. `npm add @element-plus/icons-vue` 安装 element icon 图标库
+
+21. `npm add -D rollup-plugin-visualizer` 安装用于生成项目的可视化分析报告。它能够创建一个交互式的饼图，展示打包后的代码大小分布。
+
+22. `npm add -D unplugin-vue-components unplugin-auto-import` 安装 elementui 按需引入插件
+
 ## 项目结构
 
 全局安装了 mddir 可以直接使用 mddir 命令进行结构树生成

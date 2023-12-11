@@ -6,7 +6,7 @@ export default [
   {
     url: '/api/user/info',
     method: 'get',
-    response: ({ query }) => {
+    response: () => {
       return {
         code: 0,
         message: '成功',
@@ -23,7 +23,7 @@ export default [
   {
     url: '/api/login',
     method: 'post',
-    response: ({ query }) => {
+    response: () => {
       return {
         code: 0,
         message: '登录成功',

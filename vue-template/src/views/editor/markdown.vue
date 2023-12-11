@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import Editor from '@/components/markdown/editor.vue';
 import { ref } from 'vue';
-const content = ref('XT')
+const content = ref('')
 </script>
 
 <style lang="scss" scoped>

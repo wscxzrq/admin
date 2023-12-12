@@ -21,13 +21,13 @@ function autoRegisterComponent(app: App) {
   const components = import.meta.glob('../components/form/*.vue', {
     eager: true,
   });
-  Object.entries(components).forEach(([key, module]) => {
-    completeComponentRegistration(app, key, module!);
-  });
+  // Object.entries(components).forEach(([key, module]) => {
+  //   completeComponentRegistration(app, key, module!);
+  // });
 }
 
 // 完成组件注册
-function completeComponentRegistration(app: App, key: string, module: { [key: string]: any }) {
-  const name = _.camelCase(key.split('/').pop()?.split('.')[0]) as string;
-  app.component(name, module.default);
-}
+// function completeComponentRegistration(app: App, key: string, module: { [key: string]: any }) {
+//   const name = _.camelCase(key.split('/').pop()?.split('.')[0]) as string;
+//   app.component(name, module.default);
+// }

@@ -7,20 +7,19 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Breadcrumb: typeof import('./src/components/breadcrumb.vue')['default']
-    Editor: typeof import('./src/components/markdown/editor.vue')['default']
+    Breadcrumb: typeof import('./../src/components/breadcrumb.vue')['default']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
-    ElCard: typeof import('element-plus/es')['ElCard']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
-    ElTag: typeof import('element-plus/es')['ElTag']
-    Notification: typeof import('./src/components/notification.vue')['default']
+    FormXtButton: typeof import('./../src/components/form/xt-button.vue')['default']
+    FormXtInput: typeof import('./../src/components/form/xt-input.vue')['default']
+    FormXtLink: typeof import('./../src/components/form/xt-link.vue')['default']
+    MarkdownEditor: typeof import('./../src/components/markdown/editor.vue')['default']
+    Notification: typeof import('./../src/components/notification.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    XtButton: typeof import('./src/components/form/xt-button.vue')['default']
-    XtInput: typeof import('./src/components/form/xt-input.vue')['default']
-    XtLink: typeof import('./src/components/form/xt-link.vue')['default']
+    WangEditorEditor: typeof import('./../src/components/wangEditor/Editor.vue')['default']
   }
 }

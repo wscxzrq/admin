@@ -1,7 +1,7 @@
 import vue from '@vitejs/plugin-vue';
 import { Plugin } from 'vite';
 import { setupMockPlugin } from './mock';
-import { setupElementPlugin } from './element';
+import autoImport from './autuImport';
 /**
  * 设置插件
  * @param isBuild - 是否构建
@@ -11,6 +11,6 @@ import { setupElementPlugin } from './element';
 export default function setupPlugin(isBuild: boolean, _env: ViteEnv) {
   const plugins: Plugin[] = [vue()];
   plugins.push(setupMockPlugin(isBuild));
-  setupElementPlugin(plugins);
+  autoImport(plugins);
   return plugins;
 }

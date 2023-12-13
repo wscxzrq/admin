@@ -16,7 +16,7 @@
             <div v-if="errors.password" class="xt-error">{{ errors.password }}</div>
             <!-- <ErrorMessage name="password" as="div" class="xt-error" /> -->
           </div>
-          <xt-button />
+          <XTButton/>
           <div class="flex justify-center mt-4">
             <i class="fa-brands fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer"></i>
           </div>

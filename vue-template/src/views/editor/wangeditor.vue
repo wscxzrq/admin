@@ -1,9 +1,8 @@
 <template>
-  <WangEditorEditor :height="600" v-model="content" placeholder="请输入内容"></WangEditorEditor>
+  <WangEditorEditor :height="1000" v-model="content" placeholder="请输入内容"></WangEditorEditor>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
   const content = ref('XT');
 </script>
 

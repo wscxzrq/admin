@@ -1,4 +1,5 @@
 <template>
+  <!-- wangEditor 4 版本 -->
   <div id="wangEditor">
   </div>
 </template>

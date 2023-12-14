@@ -1,13 +1,11 @@
 <template>
-  <Editor v-model="content" :height="300" placeholder="请输入内容"/>  
+  <markdown v-model="content" :height="300" placeholder="请输入内容" />
 </template>
 
 <script lang="ts" setup>
-import Editor from '@/components/markdown/editor.vue';
-import { ref } from 'vue';
-const content = ref('')
+  import markdown from '@/components/markdown/editor.vue';
+  const content = ref('');
 </script>
 
 <style lang="scss" scoped>
-
 </style>

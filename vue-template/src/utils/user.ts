@@ -14,13 +14,7 @@ export async function login(values: ILoginData) {
   const {
     data: { token },
   } = await userApi.login(values);
-  store.set(
-    CacheEnum.TOKEN_NAME,
-    {
-      token,
-    },
-    1000 * 60 * 60 * 24,
-  );
+  store.set(CacheEnum.TOKEN_NAME, token, 1000 * 60 * 60 * 24);
   userStore().getUserInfo();
 
   // 如果存在被拦截的路由那么跳转到被拦截路由否则跳转到 home

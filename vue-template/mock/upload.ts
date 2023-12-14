@@ -9,6 +9,7 @@ export default [
     response: () => {
       return {
         code: 0,
+        errno: 0, // 必须存在该参数
         message: '上传成功',
         status: 'success',
         data: {

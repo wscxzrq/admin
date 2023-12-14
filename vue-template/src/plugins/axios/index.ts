@@ -1,10 +1,10 @@
-import Axios from "./Axios";
+import Axios from './Axios';
 
 const http = new Axios({
-  baseURL: "/api",
+  baseURL: '/api',
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 

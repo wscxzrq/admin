@@ -1,4 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import store from '@/utils/store';
+import { CacheEnum } from '@/enum/cacheEnum';
+import router from '@/router';
+import errorStore from '@/store/errorStore';
 
 export default class Axios {
   private instance; // 实例
@@ -35,6 +39,7 @@ export default class Axios {
     this.instance.interceptors.request.use(
       config => {
         // 在发送请求之前做些什么
+        config.headers.set('Authorization', 'Bearer ' + store.get(CacheEnum.TOKEN_NAME) ?? '');
         return config;
       },
       error => {
@@ -55,8 +60,16 @@ export default class Axios {
         return response;
       },
       error => {
-        // 超出 2xx 范围的状态码都会触发该函数。
-        // 对响应错误做点什么
+        switch (error.response.status) {
+          case 401:
+            store.remove(CacheEnum.TOKEN_NAME);
+            router.push({ name: 'login' });
+            break;
+          case 422:
+            // 后台表单验证
+            errorStore().errors = '';
+            break;
+        }
         return Promise.reject(error);
       },
     );

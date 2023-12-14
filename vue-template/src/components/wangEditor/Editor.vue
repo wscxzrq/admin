@@ -1,29 +1,55 @@
 <template>
   <div style="border: 1px solid #ccc">
     <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" />
-    <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode" @onCreated="handleCreated" />
+    <Editor :style="{height:props.height + 'px'}" style="overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode" @onCreated="handleCreated" @onChange="handleChange" />
   </div>
 </template>
 <script lang="ts" setup>
   import '@wangeditor/editor/dist/css/style.css'; // 引入 css
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+  import { ApiEnum } from '@/enum/ApiENum';
 
+  interface IProps {
+    /**
+     * 编辑器高度
+     */
+    height?: number;
+    /**
+     * 编辑器内容
+     */
+    modelValue: string;
+  }
   const mode = ref('default');
+  const props = withDefaults(defineProps<IProps>(), {
+    // height: 300,
+    modelValue: '',
+    // uploadImgServer: '/api/uplpad/image',
+  });
+  const emit = defineEmits(['update:modelValue']);
+  // 内容 HTML
+  const valueHtml = ref(props.modelValue);
+
+  /**
+   * 富文本改变函数
+   */
+  const handleChange = (editor: string) => {
+    emit('update:modelValue', valueHtml.value);
+  };
+
+  // 编辑器配置项
+  const editorConfig = {
+    placeholder: '请输入内容...',
+    MENU_CONF: {
+      uploadImage: {
+        server: ApiEnum.UPLOAD_IMAGE_URL,
+      },
+    },
+  };
+
   // 编辑器实例，必须用 shallowRef
   const editorRef = shallowRef();
 
-  // 内容 HTML
-  const valueHtml = ref('<p>hello</p>');
-
-  // 模拟 ajax 异步获取内容
-  onMounted(() => {
-    setTimeout(() => {
-      valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>';
-    }, 1500);
-  });
-
   const toolbarConfig = {};
-  const editorConfig = { placeholder: '请输入内容...' };
 
   // 组件销毁时，也及时销毁编辑器
   onBeforeUnmount(() => {

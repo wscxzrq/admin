@@ -18,7 +18,7 @@
           </div>
           <XTButton/>
           <div class="flex justify-center mt-4">
-            <i class="fa-brands fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer"></i>
+            <XT-wechat theme="outline" size="24" fill="#ffffff" class="bg-green-600 rounded-full p-1 cursor-pointer"/>
           </div>
         </div>
         <div class="flex gap-2 mt-5 justify-center">

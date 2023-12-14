@@ -10,7 +10,7 @@ export default [
       return {
         code: 0,
         message: '上传成功',
-        type: 'success',
+        status: 'success',
         data: {
           url: '/images/user.JPG',
         },

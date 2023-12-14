@@ -1,38 +1,38 @@
 <template>
-  <div id="div1">
+  <div style="border: 1px solid #ccc">
+    <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" />
+    <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode" @onCreated="handleCreated" />
   </div>
 </template>
-
 <script lang="ts" setup>
-import { nextTick } from 'vue';
-import wangEditor from './wangEditor';
-interface IProps {
-  /**
-   * 编辑器高度
-   */
-  height?:number
-  /**
-   * 编辑器内容
-   */
-  modelValue:string
-  /**
-   * 上传图片地址
-   */
-  uploadImgServer?:string
-}
-const props = withDefaults(defineProps<IProps>(),{
-  height: 300,
-  modelValue:'',
-  uploadImgServer: '/api/uplpad/image'
-})
-const emit = defineEmits(['update:modelValue'])
-nextTick(() => {
-  new wangEditor('#div1',(newHtml:string) => {
-    emit('update:modelValue',newHtml)
-  },props)
-}) 
-</script>
+  import '@wangeditor/editor/dist/css/style.css'; // 引入 css
+  import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 
-<style lang="scss" scoped>
+  const mode = ref('default');
+  // 编辑器实例，必须用 shallowRef
+  const editorRef = shallowRef();
 
-</style>
+  // 内容 HTML
+  const valueHtml = ref('<p>hello</p>');
+
+  // 模拟 ajax 异步获取内容
+  onMounted(() => {
+    setTimeout(() => {
+      valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>';
+    }, 1500);
+  });
+
+  const toolbarConfig = {};
+  const editorConfig = { placeholder: '请输入内容...' };
+
+  // 组件销毁时，也及时销毁编辑器
+  onBeforeUnmount(() => {
+    const editor = editorRef.value;
+    if (editor == null) return;
+    editor.destroy();
+  });
+
+  const handleCreated = (editor: any) => {
+    editorRef.value = editor; // 记录 editor 实例，重要！
+  };
+</script>    

@@ -13,11 +13,6 @@ declare module 'vue-router' {
      */
     guest?: boolean;
     /**
-     * 权限列表
-     */
-    // permissions?: string[];
-
-    /**
      * 菜单配置项
      */
     menu?: IMenu;

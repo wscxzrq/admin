@@ -10,19 +10,17 @@
         <dl v-for="(menu, index) of menuServe.menu.value" :key="index">
           <dt @click="menu.isClick = !menu.isClick">
             <section>
-              <i :class="menu.icon"></i>
+              <component :is="icons[menu.icon!]" size="18" fill="#dcdcdc" class="mr-2" />
               <span class="text-sm">{{ menu.title }}</span>
             </section>
             <section>
-              <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': menu.isClick }"></i>
+              <el-icon class="duration-300" :class="{ 'rotate-180': menu.isClick }">
+                <ArrowDown />
+              </el-icon>
             </section>
           </dt>
           <dd :class="!menu.isClick || menuServe.isCollapse.value ? 'hidden' : 'block'">
-            <div
-              :class="{ active: cmenu?.isClick }"
-              v-for="(cmenu, key) of menu.children"
-              :key="key"
-              @click="$router.push({ name: cmenu.route })">
+            <div :class="{ active: cmenu?.isClick }" v-for="(cmenu, key) of menu.children" :key="key" @click="$router.push({ name: cmenu.route })">
               {{ cmenu?.title }}
             </div>
           </dd>
@@ -34,12 +32,13 @@
 </template>
 
 <script lang="ts" setup>
-import menuServe from '@/composables/menu';
-import { watch } from 'vue';
-import { useRoute } from 'vue-router';
-import menuService from '@/composables/menu';
-const route = useRoute();
-watch(route, () => menuServe.setCurrentMenu(route), { immediate: true });
+  import menuServe from '@/composables/menu';
+  import { watch } from 'vue';
+  import { useRoute } from 'vue-router';
+  import menuService from '@/composables/menu';
+  import * as icons from '@icon-park/vue-next';
+  const route = useRoute();
+  watch(route, () => menuServe.setCurrentMenu(route), { immediate: true });
 </script>
 
 <style lang="scss" scoped>
@@ -86,6 +85,9 @@ watch(route, () => menuServe.setCurrentMenu(route), { immediate: true });
         .logo {
           span {
             @apply hidden;
+            &.i-icon {
+              @apply block;
+            }
           }
         }
         .left-container {
@@ -95,6 +97,9 @@ watch(route, () => menuServe.setCurrentMenu(route), { immediate: true });
               section {
                 span {
                   @apply hidden;
+                  &.i-icon {
+                    @apply block;
+                  }
                 }
                 &:nth-of-type(2) {
                   @apply hidden;

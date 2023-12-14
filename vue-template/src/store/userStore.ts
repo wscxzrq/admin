@@ -1,4 +1,6 @@
 import userApi, { User } from '@/api/userApi';
+import { CacheEnum } from '@/enum/cacheEnum';
+import store from '@/utils/store';
 import { defineStore } from 'pinia';
 
 export default defineStore('user', {
@@ -16,8 +18,11 @@ export default defineStore('user', {
      * 获取用户信息
      */
     async getUserInfo() {
-      const res = await userApi.info();
-      this.info = res.data;
+      // 如果存在 token 则获取用户信息
+      if (store.get(CacheEnum.TOKEN_NAME)) {
+        const res = await userApi.info();
+        this.info = res.data;
+      }
     },
   },
 });

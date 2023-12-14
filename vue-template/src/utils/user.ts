@@ -21,6 +21,13 @@ export async function login(values: ILoginData) {
     },
     1000 * 60 * 60 * 24,
   );
+  userStore().getUserInfo();
+
+  // 如果存在被拦截的路由那么跳转到被拦截路由否则跳转到 home
   const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home';
   router.push({ name: routeName });
+}
+
+export function isLogin() {
+  return Boolean(store.get(CacheEnum.TOKEN_NAME));
 }

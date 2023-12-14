@@ -1,16 +1,17 @@
 // markdown 编辑器类型支持
 import uploadApi from '@/api/uploadApi';
+import Editor from '@toast-ui/editor';
 export default class {
-  editor: toastui.Editor;
+  editor: Editor;
   isFullscreen: boolean = false; // 全屏状态
   constructor(el: string, initialValue: string, public height: string) {
-    this.editor = new toastui.Editor({
-      el: document.querySelector(el),
+    this.editor = new Editor({
+      el: document.querySelector(el)!,
       initialEditType: 'markdown',
       previewStyle: 'vertical',
       height,
       initialValue,
-      toolbarItems: this.toolbar(),
+      toolbarItems: this.toolbar() as [],
     });
     this.ImageHook();
   }

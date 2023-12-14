@@ -8,7 +8,7 @@ import autoImport from './autuImport';
  * @param _env - 环境变量
  * @returns {Plugin[]} - 插件数组
  */
-export default function setupPlugin(isBuild: boolean, _env: ViteEnv) {
+export default function setupPlugin(isBuild: boolean, _env: ImportMetaEnv) {
   const plugins: Plugin[] = [vue()];
   plugins.push(setupMockPlugin(isBuild));
   autoImport(plugins);

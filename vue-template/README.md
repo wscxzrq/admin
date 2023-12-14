@@ -54,6 +54,20 @@
 
 22. `npm add -D unplugin-vue-components unplugin-auto-import` 安装 elementui 按需引入插件
 
+23 `npm add gsap` 安装动画库
+
+24 `npm add echarts` 安装图表库
+
+25. `npm add animate.css` 安装 animate.css 动画库
+
+26. `npm add @toast-ui/editor` 安装 markdown 编辑器
+
+27. `npm install @wangeditor/editor --save` `npm install @wangeditor/editor-for-vue@next --save` 安装富文本编辑器
+
+28. `npm add @icon-park/vue-next` 安装图标库
+
+29.
+
 ## 项目结构
 
 全局安装了 mddir 可以直接使用 mddir 命令进行结构树生成

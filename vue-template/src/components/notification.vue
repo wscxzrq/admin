@@ -33,7 +33,7 @@ nextTick(() => {
 .notification {
   @apply relative;
   .lists {
-    @apply absolute bg-white px-3 py-2 border rounded-md shadow-md right-[-20px] z-10 w-[300px] text-sm;
+    @apply absolute bg-white px-3 py-2 border rounded-md shadow-md right-[-20px]  z-10 w-[300px] text-sm;
     a {
       @apply truncate overflow-hidden block border-b pb-2 my-2 hover:text-blue-500;
     }

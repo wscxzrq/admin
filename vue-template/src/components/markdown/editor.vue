@@ -1,5 +1,5 @@
 <template>
-  <div id="editor"></div>
+  <div id="markdownEditor"></div>
 </template>
 
 <script lang="ts" setup>
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<IProps>(),{
 
 const emit = defineEmits(['update:modelValue'])
 nextTick(() => {
-  const toastUi = new ToastEditor('#editor',`${props.modelValue}`,`${props.height}px`);
+  const toastUi = new ToastEditor('#markdownEditor',`${props.modelValue}`,`${props.height}px`);
   toastUi.editor.on('change',(type:string) => {
     emit('update:modelValue',toastUi.editor[type == 'markdown'? 'getMarkdown' : 'getHTML']())
   }) 

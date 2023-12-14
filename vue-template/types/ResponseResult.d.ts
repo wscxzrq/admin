@@ -13,7 +13,7 @@ interface ResponseResult<T> {
   /**
    * 响应状态
    */
-  type: "success" | "error";
+  status: 'success' | 'error';
   /**
    * 响应数据
    */

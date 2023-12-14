@@ -39,6 +39,7 @@
 
 <script lang="ts" setup>
 import { ref ,nextTick} from 'vue';
+import  * as echarts from 'echarts'
 import {echart1,echart2} from './echarts'
 import { EChartOption } from 'echarts';
 interface ICard {

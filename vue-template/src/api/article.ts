@@ -6,7 +6,7 @@ export interface Article {
 }
 class articleApi {
   article() {
-    return http.request<Article>({
+    return http.request<Article[]>({
       url: 'article',
       method: 'get',
     });

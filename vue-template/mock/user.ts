@@ -10,7 +10,7 @@ export default [
       return {
         code: 0,
         message: '成功',
-        type: 'success',
+        status: 'success',
         data: {
           name: 'Miss.XT',
           age: 18,
@@ -27,7 +27,7 @@ export default [
       return {
         code: 0,
         message: '登录成功',
-        type: 'success',
+        status: 'success',
         data: {
           token: Random.string(10),
         },

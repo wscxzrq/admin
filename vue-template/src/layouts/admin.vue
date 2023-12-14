@@ -11,7 +11,7 @@
       </div>
       <div class="p-3 relative overflow-y-auto">
         <router-view #default="{Component,route}">
-          <Transition appear class="animate__animated"  
+          <Transition appear class="animate__animated"  mode="out-in"
             :enter-active-class="route.meta.enterClass ?? 'animate__fadeInRight'" 
             :leave-active-class="route.meta.leaveClass ?? 'animate__fadeOutLeft'">
             <component :is="Component" class="absolute w-full"/>

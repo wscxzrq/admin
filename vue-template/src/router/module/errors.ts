@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 export default {
   name: 'errors',
   path: '/errors',
-  meta: { menu: { title: '错误页面', icon: 'fa-solid fa-circle-exclamation', auth: true } },
+  meta: { menu: { title: '错误页面', icon: 'Caution', auth: true } },
   component: () => import('@/layouts/admin.vue'),
   children: [
     {
@@ -13,7 +13,7 @@ export default {
       meta: {
         enterClass: 'animate__fadeInRight',
         leaveClass: 'animate__fadeOutLeft',
-        menu: { title: '404错误页面', icon: 'fa-solid fa-circle-exclamation' },
+        menu: { title: '404错误页面' },
       },
     },
     {
@@ -21,7 +21,7 @@ export default {
       path: '403',
       component: () => import('@/views/errors/403.vue'),
       meta: {
-        menu: { title: '403错误页面', icon: 'fa-solid fa-circle-exclamation' },
+        menu: { title: '403错误页面' },
       },
     },
     {

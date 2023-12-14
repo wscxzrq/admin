@@ -17,7 +17,7 @@ class Menu {
   /**
    * 是否伸缩
    */
-  public isCollapse = ref(false);
+  public isCollapse = ref(utils.store.get(CacheEnum.MENU_IS_CLOSE) ?? true);
   /**
    * 面包屑路由
    */
@@ -45,6 +45,7 @@ class Menu {
    */
   toggleState() {
     this.isCollapse.value = !this.isCollapse.value;
+    utils.store.set(CacheEnum.MENU_IS_CLOSE, this.isCollapse.value);
   }
 
   /**

@@ -2,17 +2,18 @@
 <template>
   <div class="bg-white p-3 px-5 flex justify-between items-center">
     <div class="flex items-center ">
-      <div @click="menuService.toggleState">
-        <i class="fas fa-align-right mr-2 text-gray-700 cursor-pointer" v-if="!menuService.isCollapse.value"></i>
-        <i class="fas fa-align-left mr-2 text-gray-700 cursor-pointer" v-else></i>
+      <div @click="menuService.toggleState" class="cursor-pointer mr-1">
+        <XT-indent-right theme="two-tone" size="16" :fill="['#333' ,'#2F88FF']" v-if="!menuService.isCollapse.value" />
+        <XT-indent-left theme="two-tone" size="16" :fill="['#333' ,'#2F88FF']" v-else/>
       </div>
       <Breadcrumb class="hidden md:block"/>
     </div>
     <div class="flex justify-center items-center relative cursor-pointer">
       <Notification class="mr-5"/>
-      <el-icon class="mr-2" @click="fullScreen">
-        <FullScreen />
-      </el-icon>
+      <div @click="fullScreen" class="mr-5">
+        <XT-full-screen theme="outline" size="18" fill="#333" v-if="!isFullScreen"/>
+        <XT-off-screen theme="outline" size="18" fill="#333" v-else/>
+      </div>
       <div class="group">
        <div class="flex justify-center items-center">
           <img :src="userStore().info?.avatar" class="w-8 h-8 rounded-full object-cover " >
@@ -22,15 +23,15 @@
        </div>
         <section class="group-hover:block absolute right-0 top-full bg-white px-3 shadow-sm whitespace-nowrap border rounded-md hidden z-10">
           <div class="flex items-center cursor-pointer border-b py-3">
-            <i class="fas fa-folder-open"></i>
+            <XT-file-code-one theme="multi-color" size="14" :fill="['#333' ,'#2F88FF' ,'#FFF' ,'#43CCF8']"/>
             <span class="text-xs text-gray-600 ml-2">文档资料</span>
           </div>
           <div class="flex items-center cursor-pointer border-b py-3">
-            <i class="fas fa-home"></i>
+            <XT-home theme="multi-color" size="14" :fill="['#333' ,'#2F88FF' ,'#FFF' ,'#43CCF8']"/>
             <span class="text-xs text-gray-600 ml-2">网站首页</span>
           </div>
           <div class="flex items-center cursor-pointer border-b py-3" @click="utils.user.logout()">
-            <i class="fas fa-sign-out-alt"></i>
+            <XT-home theme="outline" size="14" fill="#333"/>
             <span class="text-xs text-gray-600 ml-2">退出登录</span>
           </div>
         </section>
@@ -45,11 +46,17 @@ import utils from '@/utils'
 import menuService from '@/composables/menu'
 import Notification from "@/components/notification.vue";
 import Breadcrumb from '@/components/breadcrumb.vue';
+let isFullScreen = ref(false);
 /**
  * 全屏
  */
 const fullScreen = () => {
-  document.documentElement.requestFullscreen();
+  if(!isFullScreen.value) {
+    document.documentElement.requestFullscreen();
+  }else {
+    document.exitFullscreen();
+  }
+  isFullScreen.value = !isFullScreen.value;
 }
 </script>
 

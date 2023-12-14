@@ -1,3 +1,5 @@
+import { IconType } from '@icon-park/vue-next/es/all';
+
 // 定义菜单类型约束
 interface Menu {
   /**
@@ -7,7 +9,7 @@ interface Menu {
   /**
    * 图标
    */
-  icon?: string;
+  icon?: IconType;
   /**
    * 是否点击
    */

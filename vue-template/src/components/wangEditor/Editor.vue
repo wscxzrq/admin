@@ -21,9 +21,8 @@
   }
   const mode = ref('default');
   const props = withDefaults(defineProps<IProps>(), {
-    // height: 300,
+    height: 1000,
     modelValue: '',
-    // uploadImgServer: '/api/uplpad/image',
   });
   const emit = defineEmits(['update:modelValue']);
   // 内容 HTML
@@ -32,7 +31,7 @@
   /**
    * 富文本改变函数
    */
-  const handleChange = (editor: string) => {
+  const handleChange = (_editor: string) => {
     emit('update:modelValue', valueHtml.value);
   };
 

@@ -12,7 +12,7 @@ export default [
         message: '成功',
         status: 'success',
         data: {
-          name: 'Miss.XT',
+          name: 'Miss.MM',
           age: 18,
           avatar: '/images/user.JPG',
           permissions: ['editor_markdown', 'article_edit', 'base_editor'],

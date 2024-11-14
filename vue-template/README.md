@@ -111,7 +111,7 @@
     |   |   |-- animateList.vue `列表动画组件`
     |   |   |-- breadcrumb.vue `面包屑组件`
     |   |   |-- notification.vue `通知组件`
-    |   |   |-- XT `表单组件`
+    |   |   |-- MM `表单组件`
     |   |   |   |-- button.vue `按钮组件`
     |   |   |   |-- error.vue `错误消息组件`
     |   |   |   |-- input.vue `输入框组件`

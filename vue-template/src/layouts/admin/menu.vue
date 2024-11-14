@@ -3,7 +3,7 @@
     <div class="menu">
       <div class="logo">
         <img src="/images/logo.jpg" class="w-[25px] h-[25px] p-2" alt="" />
-        <span class="text-sm">XT-后台管理系统</span>
+        <span class="text-sm">MM-后台管理系统</span>
       </div>
       <!-- 菜单 -->
       <div class="left-container">

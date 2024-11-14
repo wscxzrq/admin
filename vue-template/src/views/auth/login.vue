@@ -5,31 +5,31 @@
         <div>
           <h2 class="text-center text-gray-700 text-lg">会员登录</h2>
           <div class="mt-8">
-            <XTInput v-model="values.account" />
-            <XTError :error="errors.account" />
-            <XTInput v-model="values.password" class="mt-1" />
-            <XTError :error="errors.password" />
-            <!-- <Field name="account" as="input" value="XT@163.com" label="账号" #default="{field}" class="xt-input" placeholder="请输入手机号或邮箱">
+            <MMInput v-model="values.account" />
+            <MMError :error="errors.account" />
+            <MMInput v-model="values.password" class="mt-1" />
+            <MMError :error="errors.password" />
+            <!-- <Field name="account" as="input" value="MM@163.com" label="账号" #default="{field}" class="mm-input" placeholder="请输入手机号或邮箱">
               <input v-bind="field">
             </Field>
-            <div v-if="errors.account" class="xt-error">请输入手机号或邮箱</div> -->
-            <!-- <ErrorMessage name="account" as="div" class="xt-error" /> -->
-            <!-- <Field name="password" as="input" value="123" label="密码" #default="{field}" class="xt-input mt-3" type="password" placeholder="请输入密码">
+            <div v-if="errors.account" class="mm-error">请输入手机号或邮箱</div> -->
+            <!-- <ErrorMessage name="account" as="div" class="mm-error" /> -->
+            <!-- <Field name="password" as="input" value="123" label="密码" #default="{field}" class="mm-input mt-3" type="password" placeholder="请输入密码">
               <input v-bind="field">
             </Field>
-            <div v-if="errors.password" class="xt-error">{{ errors.password }}</div> -->
-            <!-- <ErrorMessage name="password" as="div" class="xt-error" /> -->
+            <div v-if="errors.password" class="mm-error">{{ errors.password }}</div> -->
+            <!-- <ErrorMessage name="password" as="div" class="mm-error" /> -->
           </div>
-          <XTButton />
+          <MMButton />
           <div class="flex justify-center mt-4">
-            <XT-wechat theme="outline" size="24" fill="#ffffff" class="bg-green-600 rounded-full p-1 cursor-pointer" />
+            <MM-wechat theme="outline" size="24" fill="#ffffff" class="bg-green-600 rounded-full p-1 cursor-pointer" />
           </div>
         </div>
         <div class="flex gap-2 mt-5 justify-center">
-          <XT-link />
-          <XT-link />
-          <XT-link />
-          <XT-link />
+          <MM-link />
+          <MM-link />
+          <MM-link />
+          <MM-link />
         </div>
       </div>
       <div class="hidden md:block relative">
@@ -57,7 +57,7 @@
   // }
   const { errors, handleSubmit, values } = useForm({
     initialValues: {
-      account: 'xiaotong@163.com',
+      account: 'qiming@163.com',
       password: '123131',
     }, // 初始数据
     validationSchema: schema, // 验证规则

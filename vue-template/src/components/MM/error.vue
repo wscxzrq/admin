@@ -1,5 +1,5 @@
 <template>
-  <div class="xt-error" v-show="props.error">{{ props.error }}</div>
+  <div class="mm-error" v-show="props.error">{{ props.error }}</div>
 </template>
 
 <script lang="ts" setup>

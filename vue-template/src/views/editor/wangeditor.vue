@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-  const content = ref('XT');
+  const content = ref('MM');
 </script>
 
 <style lang="scss" scoped>

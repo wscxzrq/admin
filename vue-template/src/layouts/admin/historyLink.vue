@@ -7,7 +7,7 @@
         <router-link :to="{name:link.route}">
           {{ link.title }}
         </router-link>
-        <XT-close-small theme="two-tone" size="18" class="ml-1 hover:text-yellow-600 cursor-pointer" @click="menuService.removeHistoryMenu(link)" />
+        <MM-close-small theme="two-tone" size="18" class="ml-1 hover:text-yellow-600 cursor-pointer" @click="menuService.removeHistoryMenu(link)" />
       </div>
     </div>
   </div>

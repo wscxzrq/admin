@@ -7,13 +7,23 @@ export default {
   component: () => import('@/layouts/admin.vue'),
   children: [
     {
-      name: '加载天地图',
+      name: '直接配置加载天地图',
       path: 'tianditu',
-      component: () => import('@/views/map/loadTheSkyMap.vue'),
+      component: () => import('@/views/map/configureLayersDirectly.vue'),
       meta: {
         enterClass: 'animate__fadeInRight',
         leaveClass: 'animate__fadeOutLeft',
-        menu: { title: '加载天地图的多种方式' },
+        menu: { title: '直接配置加载天地图' },
+      },
+    },
+    {
+      name: 'addLayer方式加载天地图',
+      path: 'tianditu2',
+      component: () => import('@/views/map/addLayerUreLayersDirectly.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: 'addLayer方式加载天地图' },
       },
     },
   ],

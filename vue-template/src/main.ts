@@ -4,6 +4,7 @@ import router, { setupRouter } from './router';
 import { setupPlugins } from './plugins';
 import '@/style/global.scss';
 import 'animate.css';
+import 'ol/css';
 (async function bootstrap() {
   const app = createApp(App);
   setupPlugins(app);

@@ -76,5 +76,15 @@ export default {
         menu: { title: '鼠标位置控件' },
       },
     },
+    {
+      name: '比例尺控件',
+      path: 'mousePositionControl',
+      component: () => import('@/views/map/scaleControl.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '比例尺控件' },
+      },
+    },
   ],
 } as RouteRecordRaw;

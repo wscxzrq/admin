@@ -13,7 +13,7 @@ export default [
         message: '上传成功',
         status: 'success',
         data: {
-          url: '/images/user.JPG',
+          url: '/public/images/user.jpg',
         },
       };
     },

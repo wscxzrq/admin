@@ -98,7 +98,7 @@
     |       |-- home.jpg `首页图片`
     |       |-- login.jpg `登录图片`
     |       |-- logo.jpg `logo `图片``
-    |       |-- user.JPG `用户头像`
+    |       |-- user.jpg `用户头像`
     |-- src 源码文件
     |   |-- App.vue `根组件`
     |   |-- main.ts `主入口文件`

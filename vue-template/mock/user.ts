@@ -14,7 +14,7 @@ export default [
         data: {
           name: 'Miss.MM',
           age: 18,
-          avatar: '/images/user.JPG',
+          avatar: '/public/images/user.jpg',
           permissions: ['editor_markdown', 'article_edit', 'base_editor'],
         },
       };

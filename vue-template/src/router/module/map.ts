@@ -56,5 +56,25 @@ export default {
         menu: { title: '添加基本操作控件' },
       },
     },
+    {
+      name: '加载图层控件',
+      path: 'loadLayerControl',
+      component: () => import('@/views/map/loadLayerControl.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '加载图层控件' },
+      },
+    },
+    {
+      name: '鼠标位置控件',
+      path: 'mousePositionControl',
+      component: () => import('@/views/map/mousePositionControl.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '鼠标位置控件' },
+      },
+    },
   ],
 } as RouteRecordRaw;

@@ -86,5 +86,45 @@ export default {
         menu: { title: '比例尺控件' },
       },
     },
+    {
+      name: '简单鹰眼控件',
+      path: 'easyEagleEyeControls',
+      component: () => import('@/views/map/easyEagleEyeControls.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '简单鹰眼控件' },
+      },
+    },
+    {
+      name: '自定义鹰眼控件',
+      path: 'customEagleEyeControl',
+      component: () => import('@/views/map/customEagleEyeControl.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '自定义鹰眼控件' },
+      },
+    },
+    {
+      name: '全屏控件',
+      path: 'fullScreenControl',
+      component: () => import('@/views/map/fullScreenControl.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '全屏控件' },
+      },
+    },
+    {
+      name: '图层探查',
+      path: 'layerExploration',
+      component: () => import('@/views/map/layerExploration.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '图层探查' },
+      },
+    },
   ],
 } as RouteRecordRaw;

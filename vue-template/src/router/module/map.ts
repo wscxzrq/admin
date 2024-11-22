@@ -126,5 +126,15 @@ export default {
         menu: { title: '图层探查' },
       },
     },
+    {
+      name: '动画控件',
+      path: 'animationControls',
+      component: () => import('@/views/map/animationControls.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '动画控件' },
+      },
+    },
   ],
 } as RouteRecordRaw;

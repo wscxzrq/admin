@@ -136,5 +136,15 @@ export default {
         menu: { title: '动画控件' },
       },
     },
+    {
+      name: '测量',
+      path: 'measurement',
+      component: () => import('@/views/map/measurement.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '测量' },
+      },
+    },
   ],
 } as RouteRecordRaw;

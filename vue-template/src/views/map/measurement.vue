@@ -1,7 +1,7 @@
 <template>
   <div class="h-full w-full relative">
     <div id="map" class="w-full h-[500px]"></div>
-    <el-form :model="form" label-width="auto">
+    <el-form :model="form" label-width="auto" class="mt-10">
       <el-form-item label="测量类型" size="small">
         <el-select v-model="form.type" placeholder="请选择测量类型" @change="typeChange">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -18,14 +18,14 @@
   import XYZ from 'ol/source/XYZ';
   import { Map, Overlay, View } from 'ol';
   import MapBrowserEvent from 'ol/MapBrowserEvent';
-  import Draw, { DrawEvent } from 'ol/interaction/Draw.js';
-  import { Source, Vector as VectorSource } from 'ol/source';
+  import Draw from 'ol/interaction/Draw.js';
+  import { Vector as VectorSource } from 'ol/source';
   import { Style, Fill, Stroke, Circle as CircleStyle } from 'ol/style';
-  import { LineString, Polygon } from 'ol/geom';
-  import { getLength, getArea } from 'ol/sphere';
-  import Feature from 'ol/render/Feature';
+  import { LineString, Polygon, Geometry } from 'ol/geom.js';
   import { unByKey } from 'ol/Observable.js';
   import { EventsKey } from 'ol/events';
+  import { formatLength, formatArea } from './index';
+  import Feature from 'ol/Feature.js';
 
   const key = 'c3e13f43d5f380c070aaff0b2920fae8';
   let form = reactive({
@@ -43,7 +43,7 @@
   ];
   let map = ref<Map | undefined>();
   // 当前绘制的要素
-  let sketch = ref<any>();
+  let sketch = ref<Feature<Geometry>>();
 
   let draw = ref<Draw>();
   // 测量工具提示框对象
@@ -71,7 +71,7 @@
 
     let helpMsg = '点击开始绘图';
     if (sketch.value) {
-      const geom = sketch.value.getGeometry;
+      const geom = sketch.value.getGeometry();
       // 如果绘制的是多边形
       if (geom instanceof Polygon) {
         helpMsg = continuePolygonMsg;
@@ -79,10 +79,10 @@
         // 如果绘制的是线段
         helpMsg = continueLineMsg;
       }
-      helpTooltipElement!.innerHTML = helpMsg;
-      helpTooltip.setPosition(evt.coordinate);
-      helpTooltipElement?.classList.remove('hidden');
     }
+    helpTooltipElement!.innerHTML = helpMsg;
+    helpTooltip.setPosition(evt.coordinate);
+    helpTooltipElement?.classList.remove('hidden');
   };
 
   onMounted(() => {
@@ -192,40 +192,13 @@
     draw.value.on('drawend', (evt: any) => {
       measureTooltipElement!.className = 'ol-tooltip ol-tooltip-static';
       measureTooltip.setOffset([0, -7]);
-      sketch.value = null;
+      sketch.value = undefined;
       measureTooltipElement = null;
       createMeasureTooltip();
       unByKey(listener);
     });
   };
 
-  /**
-   * 测量长度输出
-   * @param line
-   */
-  const formatLength = (line: LineString) => {
-    const transformedLine = line.clone().transform('EPSG:4326', 'EPSG:3857');
-    const length = transformedLine.getLength();
-    let output;
-    if (length > 100) {
-      output = Math.round((length / 1000) * 100) / 100 + '' + 'km';
-    } else {
-      output = Math.round(length * 100) / 100 + '' + 'm';
-    }
-    return output;
-  };
-
-  const formatArea = (polygon: Polygon) => {
-    const transformedLine = polygon.clone().transform('EPSG:4326', 'EPSG:3857');
-    const area = transformedLine.getArea();
-    let output;
-    if (area > 10000) {
-      output = (Math.round(area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
-    } else {
-      output = Math.round(area * 100) / 100 + ' ' + 'm<sup>2</sup>';
-    }
-    return output;
-  };
   /**
    * 创建测量工具提示框
    */
@@ -275,8 +248,8 @@
   };
 </script>
 
-<style lang="scss">
-.ol-tooltip {
+<style scoped lang="scss">
+:deep(.ol-tooltip) {
   position: relative;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
@@ -288,17 +261,16 @@
   cursor: default;
   user-select: none;
 }
-.ol-tooltip-measure {
+:deep(.ol-tooltip-measure) {
   opacity: 1;
   font-weight: bold;
 }
-.ol-tooltip-static {
+:deep(.ol-tooltip-static) {
   background-color: #ffcc33;
   color: black;
   border: 1px solid white;
 }
-.ol-tooltip-measure:before,
-.ol-tooltip-static:before {
+:deep(.ol-tooltip-measure:before, .ol-tooltip-static:before) {
   border-top: 6px solid rgba(0, 0, 0, 0.5);
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
@@ -308,7 +280,7 @@
   margin-left: -7px;
   left: 50%;
 }
-.ol-tooltip-static:before {
+:deep(.ol-tooltip-static:before) {
   border-top-color: #ffcc33;
 }
 </style>

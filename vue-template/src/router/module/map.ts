@@ -146,5 +146,15 @@ export default {
         menu: { title: '测量' },
       },
     },
+    {
+      name: '使用矢量样式测量',
+      path: 'measureUsingVectorStyles',
+      component: () => import('@/views/map/measureUsingVectorStyles.vue'),
+      meta: {
+        enterClass: 'animate__fadeInRight',
+        leaveClass: 'animate__fadeOutLeft',
+        menu: { title: '使用矢量样式测量' },
+      },
+    },
   ],
 } as RouteRecordRaw;

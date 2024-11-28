@@ -3,13 +3,13 @@
     <div id="map" class="w-full h-[500px]"></div>
     <el-form :model="form" class="mt-10" :inline="true">
       <el-form-item label="测量类型" size="small">
-        <el-select v-model="form.drawType" placeholder="请选择测量类型">
+        <el-select v-model="form.drawType" placeholder="请选择测量类型" @change="drawTypeChange">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="展示片段长度（中点）">
-        <el-checkbox v-model="form.segments"></el-checkbox>
+        <el-checkbox v-model="form.segments" @change="segmentsChange"></el-checkbox>
       </el-form-item>
       <el-form-item label="清空上一次测量结果">
         <el-checkbox v-model="form.clearPrevious"></el-checkbox>
@@ -27,13 +27,13 @@
   import { key, formatArea, formatLength } from './index';
   import { Vector as VectorSource } from 'ol/source.js';
   import { Circle as CircleStyle, Fill, RegularShape, Stroke, Style, Text } from 'ol/style';
-  import Feature from 'ol/Feature.js';
   import { Draw, Modify } from 'ol/interaction.js';
   import { Coordinate } from 'ol/coordinate';
+  import VectorLayer from 'ol/layer/Vector';
 
   let form = reactive({
     drawType: 'LineString' as 'Polygon' | 'LineString' | undefined, // 绘图类型
-    showSegments: false, // 是否显示线段长度（中点）
+    segments: false, // 是否显示线段长度（中点）
     clearPrevious: false, // 是否清除之前的图形
   });
   const options = [
@@ -52,14 +52,12 @@
   let source = ref<any>(new VectorSource());
   // 绘图交互实例
   let draw = ref<Draw | null>(null);
-  // 修改交互实例
-  let modify: Modify;
   // 鼠标提示位置
   let tipPoint: Point | null = null;
   // 基础样式
-  let style = new Style({
+  const style = new Style({
     fill: new Fill({
-      color: 'rgba(255,255,255.2)',
+      color: 'rgba(255,255,255,.2)',
     }),
     stroke: new Stroke({
       color: 'rgba(0,0,0,.5)',
@@ -77,7 +75,7 @@
     }),
   });
   // 标签样式
-  let labelStyle = new Style({
+  const labelStyle = new Style({
     text: new Text({
       font: '14px Calibri,sans-serif',
       fill: new Fill({ color: 'rgba(255,255,255,.2)' }),
@@ -86,9 +84,18 @@
       textBaseline: 'bottom',
       offsetY: -15,
     }),
+    image: new RegularShape({
+      radius: 8,
+      points: 3,
+      angle: Math.PI,
+      displacement: [0, 0],
+      fill: new Fill({
+        color: 'rgba(0,0,0,.7)',
+      }),
+    }),
   });
   // 鼠标提示样式
-  let tipStyle = new Style({
+  const tipStyle = new Style({
     text: new Text({
       font: '12px Calibri,sans-serif',
       fill: new Fill({ color: 'rgba(255,255,255,1)' }),
@@ -99,7 +106,7 @@
     }),
   });
   // 修改交互样式
-  let modifyStyle = ref<any>(
+  const modifyStyle = ref<any>(
     new Style({
       image: new CircleStyle({
         radius: 5,
@@ -125,6 +132,49 @@
       }),
     }),
   );
+  //  线段样式
+  const segmentStyle = ref<any>(
+    new Style({
+      text: new Text({
+        font: '12px Calibri,sans-serif',
+        fill: new Fill({
+          color: 'rgba(255,255,255,1)',
+        }),
+        backgroundFill: new Fill({
+          color: 'rgba(0,0,0,.4)',
+        }),
+        padding: [2, 2, 2, 2],
+        textBaseline: 'bottom',
+        offsetY: -12,
+      }),
+      // 创建一个规则几何图形
+      image: new RegularShape({
+        // 半径，如果是三角形，表示顶点到中心的距离
+        radius: 6,
+        // 图形的边数
+        points: 3,
+        // 图形的旋转角度
+        angle: Math.PI,
+        // 定义图形中心相对于原点的偏移量 表示中心向下偏移 8 像素
+        displacement: [0, 8],
+        fill: new Fill({
+          color: 'rgba(0,0,0,.4)',
+        }),
+      }),
+    }),
+  );
+  const segmentStyles = ref<any[]>([segmentStyle.value]);
+  // 修改交互实例
+  let modify = ref<Modify>();
+  // 绘制图层
+  const vector = ref<any>(
+    new VectorLayer({
+      source: source.value,
+      style: function (feature: any) {
+        return styleFunction(feature, form.segments);
+      },
+    }),
+  );
   /**
    * 动态为地图上的要素设置样式
    * @param feature 要素类型
@@ -135,7 +185,7 @@
   function styleFunction(
     feature: any,
     segaments: boolean,
-    drawType: 'Polygon' | 'LineString' | undefined,
+    drawType?: 'Polygon' | 'LineString' | undefined,
     tip?: string,
   ): Style[] {
     // 初始化样式数组
@@ -154,7 +204,7 @@
         // 多边形的内点，用于显示面积标注
         point = (geometry as Polygon)?.getInteriorPoint();
         // 多边形的面积（通过 formatArea 函数计算）
-        label = formatArea(geometry as Polygon);
+        label = formatArea(geometry as Polygon, '\xB2');
         // 由多边形的外环坐标生成线（用于分段处理）。
         line = new LineString((geometry as Polygon).getCoordinates()[0]);
       } else if (type === 'LineString') {
@@ -170,6 +220,7 @@
     }
     // 如果需要显示分段信息
     if (segaments && line) {
+      let count = 0;
       /**
        * 遍历线的每段
        * @param a 线的起点
@@ -179,18 +230,17 @@
         // 获取线段
         const segment = new LineString([a, b]);
         // 获取每段的长度
-        const segmentLabel = formatLength(segment);
+        const label = formatLength(segment);
+
+        if (segmentStyles.value.length - 1 < count) {
+          segmentStyles.value.push(segmentStyle.value.clone());
+        }
         // 计算线段的中点坐标并创建一个新的 Point 对象
         const segmentPoint = new Point(segment.getCoordinateAt(0.5));
-        const segmentStyle = new Style({
-          text: new Text({
-            text: segmentLabel,
-            font: '12px Calibri,sans-serif',
-            fill: new Fill({ color: '#fff' }),
-          }),
-          geometry: segmentPoint,
-        });
-        styles.push(segmentStyle);
+        segmentStyles.value[count].setGeometry(segmentPoint);
+        segmentStyles.value[count].getText().setText(label);
+        styles.push(segmentStyles.value[count]);
+        count++;
       });
     }
 
@@ -201,7 +251,7 @@
       styles.push(labelStyle);
     }
 
-    if (tip && tip === 'Point') {
+    if (tip && tip === 'Point' && !modify.value!.getOverlay().getSource()?.getFeatures().length) {
       tipPoint = geometry as Point;
       tipStyle.getText()?.setText(tip);
       styles.push(tipStyle);
@@ -229,6 +279,7 @@
             wrapX: false,
           }),
         }),
+        vector.value,
       ],
       view: new View({
         projection: 'EPSG:4326',
@@ -236,48 +287,59 @@
         zoom: 15,
       }),
     });
-    modify = new Modify({ source: source.value, style: modifyStyle.value });
-    map.value.addInteraction(modify);
-    addDrawInteraction();
+
+    modify.value = new Modify({ source: source.value, style: modifyStyle.value });
+    map.value.addInteraction(modify.value);
   };
 
   // 添加绘图交互
-  const addDrawInteraction = () => {
+  const addInteraction = () => {
     const idleTip = '点击开始测量';
     const activeTip = `单击以继续绘制 ${form.drawType === 'Polygon' ? '多边形' : '线段'}`;
 
     let tip = idleTip;
-    if (draw.value) {
-      map.value?.removeInteraction(draw.value);
-    }
-
     draw.value = new Draw({
       source: source.value,
       type: form.drawType!,
-      style: feature => styleFunction(feature, form.showSegments, form.drawType, tip),
+      style: feature => styleFunction(feature, form.segments, form.drawType, tip),
     });
 
     draw.value.on('drawstart', () => {
       if (form.clearPrevious) {
         source.value.clear();
       }
-      modify.setActive(false);
+      modify.value!.setActive(false);
       tip = activeTip;
     });
 
     draw.value.on('drawend', () => {
       modifyStyle.value.setGeometry(tipPoint);
-      modify.setActive(true);
+      modify.value!.setActive(true);
       map.value?.once('pointermove', () => {
-        modifyStyle.value.setGeometry(null);
+        modifyStyle.value.setGeometry();
       });
       tip = idleTip;
     });
 
-    map.value?.addInteraction(draw.value);
+    modify.value!.setActive(true);
+    map.value?.addInteraction(draw.value as Draw);
+  };
+
+  // 展示片段长度（中点）
+  const segmentsChange = () => {
+    // 触发重绘
+    vector.value.changed();
+    // 触发重新计算
+    draw.value?.getOverlay().changed();
+  };
+  // 切换绘制类型
+  const drawTypeChange = () => {
+    map.value?.removeInteraction(draw.value as Draw);
+    addInteraction();
   };
   onMounted(() => {
     initMap();
+    addInteraction();
   });
 </script>
 

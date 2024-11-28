@@ -176,7 +176,7 @@
         const geom = evt.target;
         let output;
         if (geom instanceof Polygon) {
-          output = formatArea(geom);
+          output = formatArea(geom, '<sup>2</sup>');
           tooltipCoord = geom.getLastCoordinate();
         } else if (geom instanceof LineString) {
           output = formatLength(geom);

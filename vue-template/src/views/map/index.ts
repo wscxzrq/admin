@@ -34,14 +34,17 @@ export const formatLength = (line: LineString) => {
  * 测量面积输出
  * @param polygon
  */
-export const formatArea = (polygon: Polygon) => {
+export const formatArea = (polygon: Polygon, unit: string) => {
   const transformedLine = polygon.clone().transform('EPSG:4326', 'EPSG:3857');
   const area = transformedLine.getArea();
   let output;
   if (area > 10000) {
-    output = (Math.round(area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
+    output = `${(Math.round(area / 1000000) * 100) / 100} km${unit}`;
+    // output = (Math.round(area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
   } else {
-    output = Math.round(area * 100) / 100 + ' ' + 'm<sup>2</sup>';
+    output = `${Math.round(area * 100) / 100} m${unit}`;
+
+    // output = Math.round(area * 100) / 100 + ' ' + 'm<sup>2</sup>';
   }
   return output;
 };
